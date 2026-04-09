@@ -1,0 +1,316 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title> Grade Calculator</title>
+
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;700&display=swap" rel="stylesheet">
+
+<style>
+* {
+    box-sizing: border-box;
+}
+
+body {
+    margin: 0;
+    font-family: 'Montserrat', sans-serif;
+    min-height: 100vh;
+    padding: 20px;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    background-image: url(leaves.jpg);
+
+    background-size: cover;
+    background-position: center;
+    background-attachment: fixed;
+}
+
+/* MAIN CARD (CENTER BOX) */
+.container {
+    width: 100%;
+    max-width: 1000px;
+    background-image: url(leaves.jpg);
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 20px 50px rgba(0,0,0,0.4);
+    backdrop-filter: blur(12px);
+}
+
+/* HEADER */
+h1 {
+    text-align: center;
+    color: #ff5722;
+}
+
+.subtitle {
+    text-align: center;
+    margin-bottom: 20px;
+}
+
+/* CENTER CONTENT */
+.center-box {
+    max-width: 500px;
+    margin: 0 auto;
+    background: rgba(255,255,255,0.8);
+    padding: 20px;
+    border-radius: 20px;
+    box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+}
+
+/* INPUTS */
+.subjects {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+    margin-top: 10px;
+}
+
+input {
+    width: 100%;
+    padding: 10px;
+    border-radius: 10px;
+    border: 1px solid #ddd;
+}
+
+/* BUTTON */
+button {
+    margin-top: 12px;
+    width: 100%;
+    padding: 12px;
+    border: none;
+    border-radius: 12px;
+    background: linear-gradient(135deg,#ff5722,#ffd500);
+    color: white;
+    font-weight: bold;
+    cursor: pointer;
+    font-size: 16px;
+}
+
+button:hover {
+    transform: scale(1.03);
+}
+
+/* RESULT */
+.result {
+    text-align: center;
+    margin-top: 12px;
+    font-weight: bold;
+    font-size: 18px;
+}
+
+/* RECORDS SECTION */
+.records-section {
+    margin-top: 30px;
+    width: 100%;
+}
+
+/* TITLE */
+.records-title {
+    text-align: center;
+    font-size: 25px;
+    margin-bottom: 10px;
+    color: black;
+}
+
+/* TABLE */
+table {
+    width: 100%;
+    border-collapse: collapse;
+    background: rgba(255,255,255,0.95);
+    border-radius: 15px;
+    overflow: hidden;
+}
+.table-wrapper {
+    overflow-x: auto;
+}
+
+/* HEADER */
+thead {
+    background: linear-gradient(135deg,#ff5722,#ff9800);
+    color: white;
+}
+
+/* CELLS */
+th, td {
+    padding: 10px;
+    text-align: center;
+    font-size: 13px;
+    border-bottom: 1px solid #eee;
+}
+
+/* ROW HOVER */
+tbody tr:hover {
+    background: #fff3e0;
+    transition: 0.2s;
+}
+
+/* DELETE BUTTON */
+.del-btn {
+    background: crimson;
+    color: white;
+    padding: 5px 8px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+}
+
+/* STICKERS */
+.sticker {
+    position: absolute;
+    font-size: 22px;
+}
+
+.top-left {
+    top: 10px;
+    left: 15px;
+}
+
+.top-right {
+    top: 10px;
+    right: 15px;
+}
+footer{
+    margin-top:15px;
+    text-align:center;
+    font-size:14px;
+    color:#2e7d32;
+}
+/* RESPONSIVE */
+@media(max-width:720px){
+    th, td {
+        font-size: 10px;
+        padding: 6px;
+    }
+}
+
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<!-- STICKERS -->
+<div class="sticker top-left">🌴🌴🌴🌴🌴</div>
+<div class="sticker top-right">☀️😎</div>
+
+<h1>📊Grade Calculator📊</h1>
+
+<!-- CENTER BOX -->
+<div class="center-box">
+
+<input type="text" id="studentName" placeholder="👤 Student Name">
+
+<div class="subjects">
+<input placeholder= "📝Quiz (20%)">
+<input class="subject-grade" maxlength="3">
+
+<input placeholder="🧪Lab (30%)">
+<input class="subject-grade" maxlength="3">
+
+<input placeholder="📌Assignment (10%)">
+<input class="subject-grade" maxlength="3">
+
+<input placeholder="📅Attendance (10%)">
+<input class="subject-grade" maxlength="3">
+
+<input placeholder="🧾Major Exam (30%)">
+<input class="subject-grade" maxlength="3">
+</div>
+
+<button onclick="compute()">⚡ Compute & Save</button>
+
+<div class="result" id="final">🎯 Final Grade: --</div>
+
+</div>
+        <tbody id="records"></tbody>
+    </table>
+    <div class="records-section">
+        <div class="records-title">📋 Student Records</div>
+    
+        <div class="table-wrapper">
+            <table>
+                <thead>
+                    <tr>
+                        <th>Name</th>
+                        <th>Quiz</th>
+                        <th>Laboratory</th>
+                        <th>Assignment</th>
+                        <th>Attendance</th>
+                        <th>Exam</th>
+                        <th>Grade</th>
+                        <th>Status</th>
+                    </tr>
+                </thead>
+                <tbody id="records"></tbody>
+            </table>
+        </div>
+    </div>
+
+</div>
+<footer>
+    🌻🌴☀️😎🌻🌴☀️😎
+    <div class="name">Kimberly Soniso BSIT 3A</div>
+</footer>
+<script>
+let studentRecords=[];
+
+function compute(){
+    let name=document.getElementById("studentName").value .trim() || "undefined";
+    let inputs = document.querySelectorAll(".subject-grade");
+
+    let weights=[0.2,0.3,0.1,0.1,0.3];
+    let total=0;
+    let data=[];
+
+    for(let i=0;i<inputs.length;i++){
+        let val=parseInt(inputs[i].value)||0;
+        total+=val*weights[i];
+        data.push(val);
+    }
+
+    let final=Math.round(total);
+    let status=final>=75?"Passed 🎉":"Failed ❌";
+
+    document.getElementById("final").innerText=`🎯 Final Grade: ${final}`;
+
+    studentRecords.unshift({name,data,final,status});
+    display();
+
+    inputs.forEach(i=>i.value="");
+    document.getElementById("studentName").value="";
+}
+
+function display(){
+    let out="";
+    studentRecords.forEach((r,i)=>{
+        out+=`
+        <tr>
+            <td>${r.name}</td>
+            <td>${r.data[0]}</td>
+            <td>${r.data[1]}</td>
+            <td>${r.data[2]}</td>
+            <td>${r.data[3]}</td>
+            <td>${r.data[4]}</td>
+            <td><b>${r.final}</b></td>
+            <td>${r.status}</td>
+            <td><button class="del-btn" onclick="del(${i})">X</button></td>
+        </tr>
+        `;
+    });
+    document.getElementById("records").innerHTML=out;
+}
+
+function del(i){
+    studentRecords.splice(i,1);
+    display();
+}
+</script>
+
+</body>
+</html>
